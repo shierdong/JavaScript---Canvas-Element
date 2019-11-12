@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Drawing Area</title>
+<!-- You can add your style here rather than in an external style sheet. -->
+<style>
+	canvas {
+	    border:5px solid #d3d3d3;
+	    background-color: #f1f1f1;
+	    display: block;
+	}
+</style>
+</head>
+<body>
+    <!-- DO NOT MODIFY THIS HTML -->
+    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+    <input type = "color" id = "picker"/>
+
+
+<script>
+var canvas = document.getElementById('myCanvas');
+var context = canvas.getContext('2d');
+var color = document.getElementById("picker");
+canvas.width = window.innerWidth*0.8;
+canvas.height = window.innerHeight*0.8;
+var paint = true;
+
+
+		function draw(e){
+		  if(paint){
+				var mouseX = e.pageX - canvas.offsetLeft;
+				var mouseY = e.pageY - canvas.offsetTop;
+			 context.beginPath();
+			 context.arc(mouseX,mouseY,10,0,2 * Math.PI);
+			 context.fillStyle = color.value;
+			 context.fill();
+		 }
+		}
+
+
+function keyboard(e) {
+	if (e.keyCode==66){
+		color.value="#0000FF";
+
+	}
+	if (e.keyCode==82) {
+		color.value="#FF0000";
+
+	}
+	if (e.keyCode==71){
+		color.value="#008000";
+
+	}
+
+	if (e.keyCode==89){
+		color.value="#FFFF00";
+	}
+
+	if (e.keyCode==38) {
+		paint=false;
+
+	}
+	if (e.keyCode==40) {
+		paint=true;
+	}
+	if (e.keyCode==32) {
+		console.log("clear");
+		context.clearRect(0, 0, canvas.width, canvas.height);
+	}
+}
+
+		canvas.addEventListener('mousemove',draw);
+		window.addEventListener("keydown", keyboard);
+
+		</script>
+</body>
+</html>
